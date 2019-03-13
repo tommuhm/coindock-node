@@ -2,12 +2,14 @@
   "name": "coindock-node",
   "version": "1.0.0",
   "description": "A wrapper for the Coindock REST and WebSocket APIs.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": ["lib/**/*"],
+  "main": "lib/coindock.js",
+  "types": "lib/coindock.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "version" : "git add -A src",
-    "postversion" : "git push && git push --tags",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
     "prepare": "yarn build",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,13 +27,17 @@
   "homepage": "https://github.com/tommuhm/coindock-node#readme",
   "devDependencies": {
     "@types/lodash": "^4.14.123",
+    "@types/minimist": "^1.2.0",
     "@types/node": "^11.11.1",
+    "@types/request": "^2.48.1",
     "@types/ws": "^6.0.1",
     "ts-node": "^8.0.3",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
     "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "request": "^2.88.0",
     "ws": "^6.2.0"
   }
 }
