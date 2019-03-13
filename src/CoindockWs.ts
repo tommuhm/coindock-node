@@ -2,7 +2,7 @@ import WebSocket from 'ws';
 
 // const Beautifier = require('./beautifier.js');
 
-export default class CoindockWS {
+export default class CoindockWs {
 
   // baseUrl not implemented yet!
   private baseUrl: string;
@@ -30,8 +30,8 @@ export default class CoindockWS {
   public onOhlcv(exchange: string,
                  symbol: string,
                  interval: string,
-                 limit: number,
-                 open: boolean,
+                 limit: number = 0,
+                 open: boolean = false,
                  eventHandler: (msg: any) => void) {
     return this._setupWebSocket(eventHandler, this.streams.ohlcv(exchange, symbol, interval, limit, open));
   }
