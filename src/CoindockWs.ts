@@ -31,7 +31,7 @@ export default class CoindockWs {
                  symbol: string,
                  interval: string,
                  limit: number = 0,
-                 open: boolean = false,
+                 open: boolean = true,
                  eventHandler: (msg: any) => void) {
     return this._setupWebSocket(eventHandler, this.streams.ohlcv(exchange, symbol, interval, limit, open));
   }
