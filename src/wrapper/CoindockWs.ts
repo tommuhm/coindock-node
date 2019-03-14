@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import {WsOhlcvOpts} from '../types';
 
 // const Beautifier = require('./beautifier.js');
 
@@ -10,12 +11,9 @@ export default class CoindockWs {
   private debugStreams: boolean;
 
   private streams = {
-    ohlcv: (exchange: string,
-            symbol: string,
-            interval: string,
-            limit: number,
-            open: boolean) =>
-      `${exchange.toLowerCase()}_${symbol.toLowerCase()}_${interval.toLowerCase()}` + (limit > 0 ? `_${limit}` : '') +
+    ohlcv: ({exchange, symbol, interval, limit = 0, open = true}: WsOhlcvOpts) =>
+      `${exchange.toLowerCase()}_${symbol.toLowerCase()}_${interval.toLowerCase()}` +
+      (limit > 0 ? `_${limit}` : '') +
       (open === true ? '@ohlcv_open' : '@ohlcv')
   };
 
@@ -27,10 +25,8 @@ export default class CoindockWs {
     this.debugStreams = debugStreams;
   }
 
-  public onOhlcv({exchange, symbol, interval, limit = 0, open = true}:
-                   { exchange: string, symbol: string, interval: string, limit?: number, open?: boolean },
-                 eventHandler: (msg: any) => void) {
-    return this._setupWebSocket(eventHandler, this.streams.ohlcv(exchange, symbol, interval, limit, open));
+  public onOhlcv(wsOhlcvOpts: WsOhlcvOpts, eventHandler: (msg: any) => void) {
+    return this._setupWebSocket(eventHandler, this.streams.ohlcv(wsOhlcvOpts));
   }
 
   public onCombinedStream(streams: { [type: string]: (...x: any) => string }, eventHandler: (msg: any) => void) {

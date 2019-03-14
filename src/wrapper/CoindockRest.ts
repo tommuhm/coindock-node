@@ -2,13 +2,14 @@ import _ from 'lodash';
 import request from 'request';
 import qs from 'querystring';
 import assert from 'assert';
+import {RestOhlcvOpts} from '../types';
 
 export default class CoindockRest {
 
   private baseUrl: string;
   private timeout: number;
 
-  public constructor({endpoint, timeout = 15000}: {timeout?: number, endpoint: string}) {
+  public constructor({endpoint, timeout = 15000}: { timeout?: number, endpoint: string }) {
     console.log(timeout);
     this.timeout = timeout;
     this.baseUrl = `http://${endpoint}/api/v1/data/`;
@@ -27,7 +28,7 @@ export default class CoindockRest {
 
     queryString = qs.stringify(query);
     if (queryString != null) {
-      console.log(queryString);;
+      console.log(queryString);
       options.url += '?' + queryString;
     }
 
@@ -65,8 +66,7 @@ export default class CoindockRest {
     }
   }
 
-  ohlcv(query: { exchange: string, symbol: string, interval: string, from?: number, to?: number, limit?: number, openLimit?: number },
-        callback: (err: any, response: any) => void) {
+  ohlcv(query: RestOhlcvOpts, callback: (err: any, response: any) => void) {
     return this.makeRequest(query, callback, '/ohlcv');
   }
 
