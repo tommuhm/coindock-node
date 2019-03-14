@@ -1,5 +1,5 @@
-import CoindockWs from './CoindockWs';
-import CoindockRest from './CoindockRest';
+import CoindockWs from './wrapper/CoindockWs';
+import CoindockRest from './wrapper/CoindockRest';
 
 export {
   CoindockWs,

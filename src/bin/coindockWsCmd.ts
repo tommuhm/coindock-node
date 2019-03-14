@@ -1,4 +1,4 @@
-import CoindockWs from './CoindockWs';
+import CoindockWs from '../wrapper/CoindockWs';
 import minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));

@@ -1,4 +1,4 @@
-import CoindockRest from './CoindockRest';
+import CoindockRest from '../wrapper/CoindockRest';
 import minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));
