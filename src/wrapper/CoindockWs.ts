@@ -30,7 +30,7 @@ export default class CoindockWs {
   }
 
   public onCombinedStream(streams: { [type: string]: (...x: any) => string }, eventHandler: (msg: any) => void) {
-    return this._setupWebSocket(eventHandler, streams.join('/'));
+    return this._setupWebSocket(eventHandler, streams.join('/'), true);
   }
 
   private _setupWebSocket(eventHandler: (msg: any) => void, streamUrl: string, isCombined: boolean = false) {
