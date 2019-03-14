@@ -14,6 +14,10 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "coindock-ws": "lib/bin/coindockWsCmd.js",
+    "coindock-rest": "lib/bin/coindockRestCmd.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tommuhm/coindock-node.git"
