@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import CoindockWs from '../wrapper/CoindockWs';
 import minimist = require('minimist');
 
