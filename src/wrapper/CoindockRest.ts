@@ -66,8 +66,8 @@ export default class CoindockRest {
     }
   }
 
-  ohlcv(query: RestOhlcvOpts, callback: (err: any, response: any) => void) {
-    return this.makeRequest(query, callback, '/ohlcv');
+  ohlcv(restOhlcvOpts: RestOhlcvOpts, callback: (err: any, response: any) => void) {
+    return this.makeRequest(restOhlcvOpts, callback, '/ohlcv');
   }
 
 }
