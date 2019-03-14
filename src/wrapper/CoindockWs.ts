@@ -21,17 +21,14 @@ export default class CoindockWs {
 
   private sockets: { [path: string]: WebSocket; } = {};
 
-  public constructor(endpoint: string, debugStreams = false) {
+  public constructor({endpoint, debugStreams = false}: { endpoint: string, debugStreams?: boolean }) {
     this.baseUrl = `ws://${endpoint}/ws/`;
     this.combinedUrl = `ws://${endpoint}/stream?streams=`;
     this.debugStreams = debugStreams;
   }
 
-  public onOhlcv(exchange: string,
-                 symbol: string,
-                 interval: string,
-                 limit: number = 0,
-                 open: boolean = true,
+  public onOhlcv({exchange, symbol, interval, limit = 0, open = true}:
+                   { exchange: string, symbol: string, interval: string, limit?: number, open?: boolean },
                  eventHandler: (msg: any) => void) {
     return this._setupWebSocket(eventHandler, this.streams.ohlcv(exchange, symbol, interval, limit, open));
   }

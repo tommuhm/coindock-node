@@ -20,11 +20,11 @@ if (endpoint == null || exchange == null || symbol == null || interval == null) 
   usage();
 }
 
-const coindock = new CoindockWs(endpoint);
+const coindock = new CoindockWs({endpoint});
 
 console.log(`using: ${endpoint}, sending: exchange=${exchange}, symbol=${symbol}, interval=${interval}, limit=${limit}, open=${open}`);
 
-coindock.onOhlcv(exchange, symbol, interval, limit, open, (msg) => {
+coindock.onOhlcv({exchange, symbol, interval, limit, open}, (msg) => {
   console.log(msg);
 });
 
