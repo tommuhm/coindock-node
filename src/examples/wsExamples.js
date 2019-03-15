@@ -35,7 +35,6 @@ coindockWs.onCombinedStream([
     bnbbtc10sec
   ],
   (streamEvent) => {
-    console.log(streamEvent);
     switch(streamEvent.stream) {
       case btcusdt15min:
         console.log('OHLCV for btcusdt15min \n', streamEvent.data);
@@ -49,6 +48,8 @@ coindockWs.onCombinedStream([
       case bnbbtc10sec:
         console.log('OHLCV for bnbbtc10sec \n', streamEvent.data);
         break;
+      default:
+        console.log('unknown event\n', streamEvent);
     }
   }
 );
