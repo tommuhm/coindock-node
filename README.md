@@ -5,18 +5,18 @@ A wrapper for the Coindock REST and WebSocket APIs.
 # Coindock 
 Coindock is a cryptocurrency candle-builder service which aims to support all exchanges with all their currency-pairs and any desired candle interval. The service builds all it's candles directly from the underlying trades and can therefore provide open-candles for all exchanges and symbols.
 
-Features:
-- support for all major cryptocurrency exchanges (coming soon)
-- candles for any desired candle interval (live and historic)
-- binance like open-candles (live and historic)
-- cross exchange, cross symbol trading signals (coming soon)
-
-
 Current supported exchanges: `binance`, `coinbase`, `coinbasepro`, `bitfinex,`, `bitstamp`, `kraken`.
 
 Current supported currency-pairs: any currency which is provided by the specified exchange.
 
 Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X can be any positive integer value.
+
+
+### Features:
+- support for all major cryptocurrency exchanges (coming soon)
+- candles for any desired candle interval (live and historic)
+- binance like open-candles (live and historic)
+- cross exchange, cross symbol trading signals (coming soon)
 
 
 # Usage/Example
