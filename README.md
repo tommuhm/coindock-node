@@ -120,5 +120,7 @@ coindockWs.onCombinedStream([
 
 ```
 
+# License
+[MIT](LICENSE)
 
 This wrapper is heavily inspired by binance wrapper https://github.com/zoeyg/binance
