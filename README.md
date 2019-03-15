@@ -12,7 +12,7 @@ Features:
 - cross exchange, cross symbol trading signals (coming soon)
 
 
-Current supported exchanges: `binance`, `coinbase`, `coinbasepro`, `'bitfinex',` `kraken`.
+Current supported exchanges: `binance`, `coinbase`, `coinbasepro`, `bitfinex,`, `bitstamp`, `kraken`.
 
 Current supported currency-pairs: any currency which is provided by the specified exchange.
 
