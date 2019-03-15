@@ -121,4 +121,4 @@ coindockWs.onCombinedStream([
 ```
 
 
-This project is heavily inspired by https://github.com/zoeyg/binance
+This wrapper is heavily inspired by binance wrapper https://github.com/zoeyg/binance
