@@ -5,12 +5,10 @@ A wrapper for the Coindock REST and WebSocket APIs.
 ```js
 const api = require('coindock-node');
 
-
 const coindockRest = new api.CoindockRest({
   endpoint: 'localhost:5555', // required, server address
   timeout: 15000, // optional, defaults to 15000, is the request time out in milliseconds
 });
-
 
 // promise example
 coindockRest.ohlcv({
@@ -27,7 +25,6 @@ coindockRest.ohlcv({
   .catch((err) => {
     console.error(err);
   });
-
 
 // callback example
 coindockRest.ohlcv({
@@ -58,7 +55,6 @@ const coindockWs = new api.CoindockWs({
   debugStreams: false // optional, defaults to false, enables debug information for candles
 });
 
-
 // single stream example
 coindockWs.onOhlcv({
   exchange: 'binance',
@@ -69,7 +65,6 @@ coindockWs.onOhlcv({
 }, (data) => {
   console.log(data);
 });
-
 
 /*
  * You can use one websocket for multiple streams.
@@ -108,4 +103,5 @@ coindockWs.onCombinedStream([
 
 ```
 
-This project is heavily inspired by `https://github.com/zoeyg/binance`;
+
+This project is heavily inspired by https://github.com/zoeyg/binance
