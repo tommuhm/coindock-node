@@ -26,7 +26,7 @@ const streams = coindockWs.streams;
 const btcusdt15min = streams.ohlcv({exchange: 'binance', symbol: 'btcusdt', interval: '15min', limit: 200, open: false});
 const ethusdt3h = streams.ohlcv({exchange: 'binance', symbol: 'ethusdt', interval: '3h', limit: 5});
 const ethbtc1d = streams.ohlcv({exchange: 'binance', symbol: 'ethbtc', interval: '1d', limit: 200, open: true});
-const bnbbtc10sec = streams.ohlcv({exchange: 'binance', symbol: 'bnbbtcaa', interval: '1sec'});
+const bnbbtc10sec = streams.ohlcv({exchange: 'binance', symbol: 'bnbbtc', interval: '1sec'});
 
 coindockWs.onCombinedStream([
     btcusdt15min,
