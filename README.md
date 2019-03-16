@@ -22,12 +22,12 @@ Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X c
 ### [Installation](#Installation) · [Usage](#usage) · [Command-Line-Tool](#Command-Line-Tool) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
 
 
-#### Installation
+### Installation
 ```
 npm install coindock-node --save
 ```
 
-#### Usage
+### Usage
 
 #### Getting started
 ```javascript
@@ -90,7 +90,7 @@ Live candles are provided via a websocket api.
 Each call to onXXXX initiates a new websocket for the specified route, and calls your callback with the payload of each message received.  Each call to onXXXX returns the instance of the websocket client if you want direct access (https://www.npmjs.com/package/ws).
 
 ##### Single candle stream
-```js 
+```js
 coindockWs.onOhlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
@@ -104,11 +104,9 @@ coindockWs.onOhlcv({
 
 ##### Combined candle stream
 
-/*
- * You can use one websocket for multiple streams.
- */
+With combined streams it is possible to use a single websocket for multiple streams.
  
-```js 
+```js
 const streams = coindockWs.streams;
 
 const btcusdt15min = streams.ohlcv({exchange: 'binance', symbol: 'btcusdt', interval: '15min', limit: 200, open: false});
@@ -141,8 +139,9 @@ coindockWs.onCombinedStream([
 );
 
 ```
-
-#### Command-Line-Tool
+\
+\
+### Command-Line-Tool
 
 This node module also provides a simple command line tool.
 
@@ -156,54 +155,54 @@ npm install coindock-node --g
 ##### historic data
 
 ```bash
-coindock-rest coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [openLimit=number]
+coindock-rest coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
 ```
 
 ##### live data
 
 ```bash
-coindock-ws endpoint exchange symbol interval [limit=number] [open=boolean]
+coindock-ws endpoint exchange symbol interval [--limit=number] [--open=boolean]
 ```
 
 #### Examples for binance-btcusdt candles
 
-- load the last 100 1d candles
+- load the last 100 1-day candles
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 1d --limit=100
 ```
 
-- load the last 1000 4h candles
+- load the last 1000 4-hour candles
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 4h
 ```
 
-- load all 30sec candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
+- load all 30-second candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 30sec --from=1546300800000 to=1546322400000
 ```
 
-- load 300 10min candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
+- load 300 10-minute candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 10min --from=1546300800000 --limit=300 --openLimit=200
 ```
 
-- live-stream for 10min open and closed candles
+- live-stream for 10-minute open and closed candles
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10min 
 ```
 
-- live-stream for 10sec closed candles starting with the next interval-tick
+- live-stream for 10-second closed candles starting with the next interval-tick
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10sec --open=false
 ```
 
-- load 300 closed candles and start live-stream for 3h open and closed candles
+- load 300 closed candles and start live-stream for 3-hour open and closed candles
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10sec --limit=300 --open=true
