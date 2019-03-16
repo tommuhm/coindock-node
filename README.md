@@ -19,7 +19,7 @@ Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X c
 - cross exchange, cross symbol trading signals (coming soon)
 
 
-### [Installation](#Installation) · [Usage](#usage) · [Command-Line-Tool](#Command-Line-Tool) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
+### [Installation](#Installation) · [Usage](#usage) · [CMD-Tool](#Command-Line-Tool) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
 
 
 ### Installation
@@ -80,7 +80,6 @@ coindockRest.ohlcv({
   }
 });
 ```
-
 
 
 #### Live candles 
