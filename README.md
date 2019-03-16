@@ -154,7 +154,7 @@ npm install coindock-node --g
 ##### historic data
 
 ```bash
-coindock-rest coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
+coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
 ```
 
 ##### live data
