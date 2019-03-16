@@ -3,7 +3,7 @@ A wrapper for the Coindock REST and WebSocket APIs.
 
 
 # Coindock 
-Coindock is a cryptocurrency candle-builder service which aims to support all exchanges with all their currency-pairs and any desired candle interval. The service builds all it's candles directly from the underlying trades and can therefore provide open-candles for all exchanges and symbols.
+Coindock is a cryptocurrency candle-builder service which aims to support all major exchanges with all their currency-pairs and any desired candle interval. The service builds all it's candles directly from the underlying trades and can therefore provide historic and live open-candles for all exchanges and symbols.
 
 Current supported exchanges: `binance`, `coinbase`, `coinbasepro`, `bitfinex,`, `bitstamp`, `kraken`.
 
@@ -12,15 +12,25 @@ Current supported currency-pairs: any currency which is provided by the specifie
 Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X can be any positive integer value.
 
 
-### Features:
+##### Features:
 - support for all major cryptocurrency exchanges (coming soon)
 - candles for any desired candle interval (live and historic)
 - binance like open-candles (live and historic)
 - cross exchange, cross symbol trading signals (coming soon)
 
 
-# Usage/Example
-```js
+##### [Installation](#Installation) · [Usage](#usage) · [CMD Tool](#cmd) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
+
+
+#### Installation
+```
+npm install coindock-node --save
+```
+
+#### Usage
+
+#### Getting started
+```javascript
 const api = require('coindock-node');
 
 const coindockRest = new api.CoindockRest({
@@ -28,7 +38,16 @@ const coindockRest = new api.CoindockRest({
   timeout: 15000, // optional, defaults to 15000, is the request time out in milliseconds
 });
 
-// promise example
+const coindockWs = new api.CoindockWs({
+  endpoint: 'localhost:6666', // required, server address,
+  debugStreams: false // optional, defaults to false, enables debug information for candles
+});
+```
+
+#### Load historic candles 
+
+##### with promise
+```js
 coindockRest.ohlcv({
     exchange: 'binance',
     symbol: 'BTCUSDT',
@@ -43,15 +62,16 @@ coindockRest.ohlcv({
   .catch((err) => {
     console.error(err);
   });
+```
 
-// callback example
+##### with callback
+```js
 coindockRest.ohlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
-  interval: '5min',
+  interval: '3h',
   from: 1547392298000,
-  limit: 500,
-  openLimit: 200
+  limit: 1000,
 }, (err, response) => {
   if (err) {
     console.log(err);
@@ -59,21 +79,18 @@ coindockRest.ohlcv({
     console.log(response);
   }
 });
+```
 
 
-/*
- * WebSocket API
- *
- * Each call to onXXXX initiates a new websocket for the specified route, and calls your callback with
- * the payload of each message received.  Each call to onXXXX returns the instance of the websocket
- * client if you want direct access(https://www.npmjs.com/package/ws).
- */
-const coindockWs = new api.CoindockWs({
-  endpoint: 'localhost:6666', // required, server address,
-  debugStreams: false // optional, defaults to false, enables debug information for candles
-});
 
-// single stream example
+#### Live candles 
+
+Live candles are provided via a websocket api.
+
+Each call to onXXXX initiates a new websocket for the specified route, and calls your callback with the payload of each message received.  Each call to onXXXX returns the instance of the websocket client if you want direct access (https://www.npmjs.com/package/ws).
+
+##### Single candle stream
+```js 
 coindockWs.onOhlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
@@ -83,10 +100,15 @@ coindockWs.onOhlcv({
 }, (data) => {
   console.log(data);
 });
+```
+
+##### Combined candle stream
 
 /*
  * You can use one websocket for multiple streams.
  */
+ 
+```js 
 const streams = coindockWs.streams;
 
 const btcusdt15min = streams.ohlcv({exchange: 'binance', symbol: 'btcusdt', interval: '15min', limit: 200, open: false});
@@ -120,7 +142,20 @@ coindockWs.onCombinedStream([
 
 ```
 
-# License
-[MIT](LICENSE)
+#### CMD Tool
 
+This node module also provides a simple command line tool.
+
+#### Installation
+
+#### Installation
+```
+npm install coindock-node --g
+```
+
+
+
+# License
+[MIT](LICENSE)<br/>
+<br/>
 This wrapper is heavily inspired by binance wrapper https://github.com/zoeyg/binance
