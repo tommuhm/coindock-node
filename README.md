@@ -139,7 +139,6 @@ coindockWs.onCombinedStream([
 
 ```
 \
-\
 ### Command-Line-Tool
 
 This node module also provides a simple command line tool.
