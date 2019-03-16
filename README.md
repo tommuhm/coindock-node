@@ -19,7 +19,7 @@ Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X c
 - cross exchange, cross symbol trading signals (coming soon)
 
 
-##### [Installation](#Installation) · [Usage](#usage) · [CMD Tool](#cmd) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
+### [Installation](#Installation) · [Usage](#usage) · [Command-Line-Tool](#Command-Line-Tool) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
 
 
 #### Installation
@@ -142,7 +142,7 @@ coindockWs.onCombinedStream([
 
 ```
 
-#### CMD Tool
+#### Command-Line-Tool
 
 This node module also provides a simple command line tool.
 
@@ -167,43 +167,43 @@ coindock-ws endpoint exchange symbol interval [limit=number] [open=boolean]
 
 #### Examples for binance-btcusdt candles
 
-##### load the last 100 1d candles
+- load the last 100 1d candles
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 1d --limit=100
 ```
 
-##### load the last 1000 4h candles
+- load the last 1000 4h candles
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 4h
 ```
 
-##### load all 30sec candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
+- load all 30sec candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 30sec --from=1546300800000 to=1546322400000
 ```
 
-##### load 300 10min candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
+- load 300 10min candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
 
 ```bash
 coindock-rest localhost:5555 binance btcusdt 10min --from=1546300800000 --limit=300 --openLimit=200
 ```
 
-#### live-stream for 10min open and closed candles
+- live-stream for 10min open and closed candles
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10min 
 ```
 
-#### live-stream for 10sec closed candles starting with the next interval-tick
+- live-stream for 10sec closed candles starting with the next interval-tick
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10sec --open=false
 ```
 
-#### load 300 closed candles and start live-stream for 3h open and closed candles
+- load 300 closed candles and start live-stream for 3h open and closed candles
 
 ```bash
 coindock-ws localhost:6666 binance btcusdt 10sec --limit=300 --open=true
