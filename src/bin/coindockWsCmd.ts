@@ -29,7 +29,7 @@ coindock.onOhlcv({exchange, symbol, interval, limit, open}, (msg) => {
 });
 
 function usage() {
-  console.log(`usage: ./coindock-ws endpoint exchange symbol interval  [limit=number] [open=boolean]`);
+  console.log(`usage: ./coindock-ws endpoint exchange symbol interval  [--limit=number] [--open=boolean]`);
   console.log(`example: ./coindock-ws localhost:6666 binance btcusdt 5min --limit=30 --open=true`);
   process.exit(1);
 }

@@ -36,7 +36,7 @@ coindock.ohlcv({exchange, symbol, interval, limit, from, to, openLimit}, (err, r
 });
 
 function usage() {
-  console.log(`usage: ./coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [openLimit=number]`);
+  console.log(`usage: ./coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]`);
   console.log(`example: ./coindock-rest localhost:5555 binance btcusdt 5min --from=1547392298000 --limit=500 --openLimit=30`);
   process.exit(1);
 }

@@ -3,7 +3,7 @@ A wrapper for the Coindock REST and WebSocket APIs.
 
 
 # Coindock 
-Coindock is a cryptocurrency candle-builder service which aims to support all exchanges with all their currency-pairs and any desired candle interval. The service builds all it's candles directly from the underlying trades and can therefore provide open-candles for all exchanges and symbols.
+Coindock is a cryptocurrency candle-builder service which aims to support all major exchanges with all their currency-pairs and any desired candle interval. The service builds all it's candles directly from the underlying trades and can therefore provide historic and live open-candles for all exchanges and symbols.
 
 Current supported exchanges: `binance`, `coinbase`, `coinbasepro`, `bitfinex,`, `bitstamp`, `kraken`.
 
@@ -12,15 +12,25 @@ Current supported currency-pairs: any currency which is provided by the specifie
 Current supported candle-intervals: `Xsec`, `Xmin`, `Xhour`, `Xday`, `Xweek` X can be any positive integer value.
 
 
-### Features:
+##### Features:
 - support for all major cryptocurrency exchanges (coming soon)
 - candles for any desired candle interval (live and historic)
 - binance like open-candles (live and historic)
 - cross exchange, cross symbol trading signals (coming soon)
 
 
-# Usage/Example
-```js
+### [Installation](#Installation) · [Usage](#usage) · [CMD-Tool](#Command-Line-Tool) · [Examples](https://github.com/tommuhm/coindock-node/tree/master/src/examples)
+
+
+### Installation
+```
+npm install coindock-node --save
+```
+
+### Usage
+
+#### Getting started
+```javascript
 const api = require('coindock-node');
 
 const coindockRest = new api.CoindockRest({
@@ -28,7 +38,16 @@ const coindockRest = new api.CoindockRest({
   timeout: 15000, // optional, defaults to 15000, is the request time out in milliseconds
 });
 
-// promise example
+const coindockWs = new api.CoindockWs({
+  endpoint: 'localhost:6666', // required, server address,
+  debugStreams: false // optional, defaults to false, enables debug information for candles
+});
+```
+
+#### Load historic candles 
+
+##### with promise
+```js
 coindockRest.ohlcv({
     exchange: 'binance',
     symbol: 'BTCUSDT',
@@ -43,15 +62,16 @@ coindockRest.ohlcv({
   .catch((err) => {
     console.error(err);
   });
+```
 
-// callback example
+##### with callback
+```js
 coindockRest.ohlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
-  interval: '5min',
+  interval: '3h',
   from: 1547392298000,
-  limit: 500,
-  openLimit: 200
+  limit: 1000,
 }, (err, response) => {
   if (err) {
     console.log(err);
@@ -59,21 +79,17 @@ coindockRest.ohlcv({
     console.log(response);
   }
 });
+```
 
 
-/*
- * WebSocket API
- *
- * Each call to onXXXX initiates a new websocket for the specified route, and calls your callback with
- * the payload of each message received.  Each call to onXXXX returns the instance of the websocket
- * client if you want direct access(https://www.npmjs.com/package/ws).
- */
-const coindockWs = new api.CoindockWs({
-  endpoint: 'localhost:6666', // required, server address,
-  debugStreams: false // optional, defaults to false, enables debug information for candles
-});
+#### Live candles 
 
-// single stream example
+Live candles are provided via a websocket api.
+
+Each call to onXXXX initiates a new websocket for the specified route, and calls your callback with the payload of each message received.  Each call to onXXXX returns the instance of the websocket client if you want direct access (https://www.npmjs.com/package/ws).
+
+##### Single candle stream
+```js
 coindockWs.onOhlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
@@ -83,10 +99,13 @@ coindockWs.onOhlcv({
 }, (data) => {
   console.log(data);
 });
+```
 
-/*
- * You can use one websocket for multiple streams.
- */
+##### Combined candle stream
+
+With combined streams it is possible to use a single websocket for multiple streams.
+ 
+```js
 const streams = coindockWs.streams;
 
 const btcusdt15min = streams.ohlcv({exchange: 'binance', symbol: 'btcusdt', interval: '15min', limit: 200, open: false});
@@ -119,8 +138,78 @@ coindockWs.onCombinedStream([
 );
 
 ```
+<br>
+
+### Command-Line-Tool
+
+This node module also provides a simple command line tool.
+
+#### Installation
+```
+npm install coindock-node --g
+```
+
+#### Usage 
+
+##### historic data
+
+```bash
+coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
+```
+
+##### live data
+
+```bash
+coindock-ws endpoint exchange symbol interval [--limit=number] [--open=boolean]
+```
+
+#### Examples for binance-btcusdt candles
+
+- load the last 100 1-day candles
+
+```bash
+coindock-rest localhost:5555 binance btcusdt 1d --limit=100
+```
+
+- load the last 1000 4-hour candles
+
+```bash
+coindock-rest localhost:5555 binance btcusdt 4h
+```
+
+- load all 30-second candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
+
+```bash
+coindock-rest localhost:5555 binance btcusdt 30sec --from=1546300800000 to=1546322400000
+```
+
+- load 300 10-minute candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
+
+```bash
+coindock-rest localhost:5555 binance btcusdt 10min --from=1546300800000 --limit=300 --openLimit=200
+```
+
+- live-stream for 10-minute open and closed candles
+
+```bash
+coindock-ws localhost:6666 binance btcusdt 10min 
+```
+
+- live-stream for 10-second closed candles starting with the next interval-tick
+
+```bash
+coindock-ws localhost:6666 binance btcusdt 10sec --open=false
+```
+
+- load 300 closed candles and start live-stream for 3-hour open and closed candles
+
+```bash
+coindock-ws localhost:6666 binance btcusdt 10sec --limit=300 --open=true
+```
+
 
 # License
-[MIT](LICENSE)
-
+[MIT](LICENSE)\
+\
+\
 This wrapper is heavily inspired by binance wrapper https://github.com/zoeyg/binance
