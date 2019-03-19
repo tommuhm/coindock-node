@@ -2,6 +2,7 @@ const api = require('coindock-node');
 
 const coindockRest = new api.CoindockRest({
   endpoint: 'localhost:5555', // required, server address
+  apiKey: '<YOUR-API-KEY>', // required, api key
   timeout: 15000, // optional, defaults to 15000, is the request time out in milliseconds
 });
 

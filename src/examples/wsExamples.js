@@ -2,6 +2,7 @@ const api = require('coindock-node');
 
 const coindockWs = new api.CoindockWs({
   endpoint: 'localhost:6666', // required, server address,
+  apiKey: '<YOUR-API-KEY>', // required, api key
   debugStreams: false // optional, defaults to false, enables debug information for candles
 });
 
