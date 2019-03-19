@@ -9,6 +9,7 @@ export default class CoindockWs {
   private baseUrl: string;
   private combinedUrl: string;
   private debugStreams: boolean;
+  private apiKey: string;
 
   private streams = {
     ohlcv: ({exchange, symbol, interval, limit = 0, open = true}: WsOhlcvOpts) =>
@@ -19,9 +20,10 @@ export default class CoindockWs {
 
   private sockets: { [path: string]: WebSocket; } = {};
 
-  public constructor({endpoint, debugStreams = false}: { endpoint: string, debugStreams?: boolean }) {
+  public constructor({endpoint, apiKey, debugStreams = false}: { endpoint: string, apiKey: string, debugStreams?: boolean }) {
     this.baseUrl = `ws://${endpoint}/ws/`;
     this.combinedUrl = `ws://${endpoint}/stream?streams=`;
+    this.apiKey = apiKey;
     this.debugStreams = debugStreams;
   }
 
@@ -38,8 +40,10 @@ export default class CoindockWs {
       return this.sockets[streamUrl];
     }
     streamUrl = (isCombined == true ? this.combinedUrl : this.baseUrl) + streamUrl;
+    streamUrl += (isCombined == true ? `&` : `?`) + `apiKey=${this.apiKey}`;
+
     if (this.debugStreams == true) {
-      streamUrl += isCombined == true ? '&debug=true' : '?debug=true';
+      streamUrl += '&debug=true';
     }
 
     const ws = new WebSocket(streamUrl);

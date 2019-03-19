@@ -8,10 +8,11 @@ export default class CoindockRest {
 
   private baseUrl: string;
   private timeout: number;
+  private apiKey: string;
 
-  public constructor({endpoint, timeout = 15000}: { timeout?: number, endpoint: string }) {
-    console.log(timeout);
+  public constructor({endpoint, apiKey, timeout = 15000}: { endpoint: string, apiKey: string, timeout?: number }) {
     this.timeout = timeout;
+    this.apiKey = apiKey;
     this.baseUrl = `http://${endpoint}/api/v1/data/`;
   }
 
@@ -22,14 +23,13 @@ export default class CoindockRest {
 
     let queryString;
     const options = {
-      url: `${this.baseUrl}${route}`,
+      url: `${this.baseUrl}${route}?apiKey=${this.apiKey}`,
       timeout: this.timeout
     };
 
     queryString = qs.stringify(query);
     if (queryString != null) {
-      console.log(queryString);
-      options.url += '?' + queryString;
+      options.url += '&' + queryString;
     }
 
     const action = (cb: (err: any, payload: any) => void) => {
