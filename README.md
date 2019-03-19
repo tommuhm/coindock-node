@@ -35,11 +35,13 @@ const api = require('coindock-node');
 
 const coindockRest = new api.CoindockRest({
   endpoint: 'localhost:5555', // required, server address
+  apiKey: '<YOUR-API-KEY>', // required, api key
   timeout: 15000, // optional, defaults to 15000, is the request time out in milliseconds
 });
 
 const coindockWs = new api.CoindockWs({
   endpoint: 'localhost:6666', // required, server address,
+  apiKey: '<YOUR-API-KEY>', // required, api key
   debugStreams: false // optional, defaults to false, enables debug information for candles
 });
 ```
@@ -154,13 +156,13 @@ npm install coindock-node --g
 ##### historic data
 
 ```bash
-coindock-rest endpoint exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
+coindock-rest endpoint apiKey exchange symbol interval [--from=timestampMs] [--to=timestampMs] [--limit=number] [--openLimit=number]
 ```
 
 ##### live data
 
 ```bash
-coindock-ws endpoint exchange symbol interval [--limit=number] [--open=boolean]
+coindock-ws endpoint apiKey exchange symbol interval [--limit=number] [--open=boolean]
 ```
 
 #### Examples for binance-btcusdt candles
@@ -168,43 +170,43 @@ coindock-ws endpoint exchange symbol interval [--limit=number] [--open=boolean]
 - load the last 100 1-day candles
 
 ```bash
-coindock-rest localhost:5555 binance btcusdt 1d --limit=100
+coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 1d --limit=100
 ```
 
 - load the last 1000 4-hour candles
 
 ```bash
-coindock-rest localhost:5555 binance btcusdt 4h
+coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 4h
 ```
 
 - load all 30-second candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
 
 ```bash
-coindock-rest localhost:5555 binance btcusdt 30sec --from=1546300800000 to=1546322400000
+coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 30sec --from=1546300800000 to=1546322400000
 ```
 
 - load 300 10-minute candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
 
 ```bash
-coindock-rest localhost:5555 binance btcusdt 10min --from=1546300800000 --limit=300 --openLimit=200
+coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 10min --from=1546300800000 --limit=300 --openLimit=200
 ```
 
 - live-stream for 10-minute open and closed candles
 
 ```bash
-coindock-ws localhost:6666 binance btcusdt 10min 
+coindock-ws localhost:6666 <YOUR-API-KEY> binance btcusdt 10min 
 ```
 
 - live-stream for 10-second closed candles starting with the next interval-tick
 
 ```bash
-coindock-ws localhost:6666 binance btcusdt 10sec --open=false
+coindock-ws localhost:6666 <YOUR-API-KEY> binance btcusdt 10sec --open=false
 ```
 
 - load 300 closed candles and start live-stream for 3-hour open and closed candles
 
 ```bash
-coindock-ws localhost:6666 binance btcusdt 10sec --limit=300 --open=true
+coindock-ws localhost:6666 <YOUR-API-KEY> binance btcusdt 10sec --limit=300 --open=true
 ```
 
 
