@@ -212,4 +212,4 @@ coindock-ws localhost:6666 binance btcusdt 10sec --limit=300 --open=true
 [MIT](LICENSE)\
 \
 \
-This wrapper is heavily inspired by binance wrapper https://github.com/zoeyg/binance
+This wrapper is heavily inspired by the binance wrapper https://github.com/zoeyg/binance
