@@ -182,7 +182,7 @@ coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 4h
 - load all 30-second candles between 1546300800000 (1/1/2019, 12:00:00 AM) and 1546322400000 (1/1/2019, 06:00:00 AM)
 
 ```bash
-coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 30sec --from=1546300800000 to=1546322400000
+coindock-rest localhost:5555 <YOUR-API-KEY> binance btcusdt 30sec --from=1546300800000 --to=1546322400000
 ```
 
 - load 300 10-minute candles starting at 1546300800000 (1/1/2019, 12:00:00 AM) and 200 open-candles after the last closed candle
