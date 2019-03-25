@@ -16,7 +16,7 @@ export default class CoindockRest {
     this.baseUrl = `http://${endpoint}/api/v1/data/`;
   }
 
-  private makeRequest(query: any, callback: (err: any, response: any) => void, route: string) {
+  private makeRequest(query: any, route: string, callback?: (err: any, response: any) => void) {
     assert(_.isUndefined(callback) || _.isFunction(callback), 'callback must be a function or undefined');
     assert(_.isObject(query), 'query must be an object');
     Object.keys(query).forEach(key => query[key] === undefined && delete query[key]);
@@ -66,8 +66,8 @@ export default class CoindockRest {
     }
   }
 
-  ohlcv(restOhlcvOpts: RestOhlcvOpts, callback: (err: any, response: any) => void) {
-    return this.makeRequest(restOhlcvOpts, callback, '/ohlcv');
+  ohlcv(restOhlcvOpts: RestOhlcvOpts, callback?: (err: any, response: any) => void) {
+    return this.makeRequest(restOhlcvOpts, '/ohlcv', callback);
   }
 
 }
