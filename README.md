@@ -117,30 +117,58 @@ coindockRest.ohlcv({
     isClosed: true },
   { time: '2019-01-01T04:00:00.000Z',
     open: 3692.32,
-    high: 3720,
-    low: 3685.94,
-    close: 3699.94,
-    volume: 6990641.25149277,
-    amount: 1889.855137,
-    nrtrades: '11202',
-    firstid: '82563190',
-    lastid: '82574391',
-    openTime: 1546315200000,
-    closeTime: 1546322400000,
-    intervalMs: 7200000,
-    isClosed: true },
-  { time: '2019-01-01T06:00:00.000Z',
-    open: 3699.95,
     high: 3986.5,
-    low: 3699.94,
-    close: 3699.95,
-    volume: 423.1188821,
-    amount: 0.114358,
-    nrtrades: '1',
-    firstid: '82574392',
-    lastid: '82574392',
-    openTime: 1546322400000,
-    closeTime: 1546322402000,
+    low: 3692.32,
+    close: 3692.95,
+    volume: 710.44948553,
+    amount: 0.19237,
+    nrtrades: '3',
+    firstid: '82563190',
+    lastid: '82563192',
+    openTime: 1546315200000,
+    closeTime: 1546315202000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.43,
+    volume: 1449.13548553,
+    amount: 0.39237,
+    nrtrades: '4',
+    firstid: '82563190',
+    lastid: '82563193',
+    openTime: 1546315200000,
+    closeTime: 1546315203000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.43,
+    volume: 1787.54231585,
+    amount: 0.483994,
+    nrtrades: '5',
+    firstid: '82563190',
+    lastid: '82563194',
+    openTime: 1546315200000,
+    closeTime: 1546315204000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.41,
+    volume: 1859.45670196,
+    amount: 0.5034649999999999,
+    nrtrades: '6',
+    firstid: '82563190',
+    lastid: '82563195',
+    openTime: 1546315200000,
+    closeTime: 1546315206000,
     intervalMs: 7200000,
     isClosed: false } ]
 ```
@@ -165,6 +193,14 @@ coindockWs.onOhlcv({
   console.log(data);
 });
 ```
+
+<details>
+ <summary>View example response</summary>
+  
+  ```js
+  
+  ```
+</details>
 
 ##### Combined candle stream
 
@@ -201,8 +237,11 @@ coindockWs.onCombinedStream([
     }
   }
 );
-
 ```
+<details>
+ <summary>View example response</summary>
+</details>
+
 <br>
 
 ### Command-Line-Tool
