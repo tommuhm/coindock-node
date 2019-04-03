@@ -54,7 +54,7 @@ coindockRest.ohlcv({
     exchange: 'binance',
     symbol: 'BTCUSDT',
     interval: '5min',
-    from: 1547392298000,
+    from: 1546300800000,
     limit: 500,
     openLimit: 200
   })
@@ -72,7 +72,7 @@ coindockRest.ohlcv({
   exchange: 'binance',
   symbol: 'BTCUSDT',
   interval: '3h',
-  from: 1547392298000,
+  from: 1546300800000,
   limit: 1000,
 }, (err, response) => {
   if (err) {
@@ -82,6 +82,97 @@ coindockRest.ohlcv({
   }
 });
 ```
+
+<details>
+ <summary>View example response</summary>
+
+```js
+[ { time: '2019-01-01T00:00:00.000Z',
+    open: 3701.23,
+    high: 3713,
+    low: 3684.22,
+    close: 3689.69,
+    volume: 4805769.04920241,
+    amount: 1299.906535,
+    nrtrades: '10090',
+    firstid: '82541550',
+    lastid: '82551639',
+    openTime: 1546300800000,
+    closeTime: 1546308000000,
+    intervalMs: 7200000,
+    isClosed: true },
+  { time: '2019-01-01T02:00:00.000Z',
+    open: 3689.67,
+    high: 3699.77,
+    low: 3675.04,
+    close: 3693.13,
+    volume: 6244466.01946716,
+    amount: 1692.016999,
+    nrtrades: '11550',
+    firstid: '82551640',
+    lastid: '82563189',
+    openTime: 1546308000000,
+    closeTime: 1546315200000,
+    intervalMs: 7200000,
+    isClosed: true },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3692.95,
+    volume: 710.44948553,
+    amount: 0.19237,
+    nrtrades: '3',
+    firstid: '82563190',
+    lastid: '82563192',
+    openTime: 1546315200000,
+    closeTime: 1546315202000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.43,
+    volume: 1449.13548553,
+    amount: 0.39237,
+    nrtrades: '4',
+    firstid: '82563190',
+    lastid: '82563193',
+    openTime: 1546315200000,
+    closeTime: 1546315203000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.43,
+    volume: 1787.54231585,
+    amount: 0.483994,
+    nrtrades: '5',
+    firstid: '82563190',
+    lastid: '82563194',
+    openTime: 1546315200000,
+    closeTime: 1546315204000,
+    intervalMs: 7200000,
+    isClosed: false },
+  { time: '2019-01-01T04:00:00.000Z',
+    open: 3692.32,
+    high: 3986.5,
+    low: 3692.32,
+    close: 3693.41,
+    volume: 1859.45670196,
+    amount: 0.5034649999999999,
+    nrtrades: '6',
+    firstid: '82563190',
+    lastid: '82563195',
+    openTime: 1546315200000,
+    closeTime: 1546315206000,
+    intervalMs: 7200000,
+    isClosed: false } ]
+```
+</details>
 
 
 #### Live candles 
@@ -102,6 +193,14 @@ coindockWs.onOhlcv({
   console.log(data);
 });
 ```
+
+<details>
+ <summary>View example response</summary>
+  
+  ```js
+  
+  ```
+</details>
 
 ##### Combined candle stream
 
@@ -138,8 +237,11 @@ coindockWs.onCombinedStream([
     }
   }
 );
-
 ```
+<details>
+ <summary>View example response</summary>
+</details>
+
 <br>
 
 ### Command-Line-Tool
