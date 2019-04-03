@@ -1,5 +1,5 @@
 import WebSocket from 'ws';
-import {WsOhlcvOpts} from '../types';
+import {JsonOhlcv, WsOhlcvOpts} from '../types';
 
 // const Beautifier = require('./beautifier.js');
 
@@ -35,7 +35,9 @@ export default class CoindockWs {
     return this._setupWebSocket(eventHandler, streams.join('/'), true);
   }
 
-  private _setupWebSocket(eventHandler: (msg: any) => void, streamUrl: string, isCombined: boolean = false) {
+  private _setupWebSocket(eventHandler: (msg: JsonOhlcv | string | { error: boolean, data: Error }) => void,
+                          streamUrl: string,
+                          isCombined: boolean = false) {
     if (this.sockets[streamUrl]) {
       return this.sockets[streamUrl];
     }
