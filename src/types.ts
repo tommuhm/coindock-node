@@ -3,7 +3,7 @@ export type WsOhlcvOpts = {
 };
 
 export type RestOhlcvOpts = {
-  exchange: string, symbol: string, interval: string, from?: number, to?: number, limit?: number, openLimit?: number
+  exchange: string, symbol: string, interval: string, from?: number, to?: number, limit?: number, open?: boolean, openLimit?: number
 };
 
 export interface JsonOhlcv {
