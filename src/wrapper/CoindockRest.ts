@@ -13,7 +13,7 @@ export default class CoindockRest {
   public constructor({endpoint, apiKey, timeout = 15000}: { endpoint: string, apiKey: string, timeout?: number }) {
     this.timeout = timeout;
     this.apiKey = apiKey;
-    this.baseUrl = `http://${endpoint}/api/v1/data/`;
+    this.baseUrl = `http://${endpoint}/api/v1/data`;
   }
 
   private makeRequest(query: any, route: string, callback?: (err: any, response: any) => void) {
