@@ -3,17 +3,27 @@ import request from 'request';
 import qs from 'querystring';
 import assert from 'assert';
 import {RestOhlcvOpts} from '../types';
+import Beautifier from '../util/Beautifier';
 
 export default class CoindockRest {
 
-  private baseUrl: string;
-  private timeout: number;
-  private apiKey: string;
+  private readonly baseUrl: string;
+  private readonly timeout: number;
+  private readonly apiKey: string;
+  private readonly beautifier: Beautifier | undefined;
 
-  public constructor({endpoint, apiKey, timeout = 15000}: { endpoint: string, apiKey: string, timeout?: number }) {
+  public constructor({endpoint, apiKey, timeout = 15000, beautify = true}:
+                       { endpoint: string,
+                         apiKey: string,
+                         timeout?: number,
+                         beautify?: boolean
+                       }) {
     this.timeout = timeout;
     this.apiKey = apiKey;
-    this.baseUrl = `http://${endpoint}/api/v1/data`;
+    this.baseUrl = `http://${endpoint}/api/v1/data/`;
+    if (beautify) {
+      this.beautifier = new Beautifier();
+    }
   }
 
   private makeRequest(query: any, route: string, callback?: (err: any, response: any) => void) {
@@ -37,6 +47,9 @@ export default class CoindockRest {
         let payload;
         try {
           payload = JSON.parse(body);
+          if (this.beautifier != null) {
+            payload = this.beautifier.beautifyList(payload, `rest_${route}`);
+          }
         } catch (e) {
           payload = body;
         }
@@ -67,7 +80,7 @@ export default class CoindockRest {
   }
 
   ohlcv(restOhlcvOpts: RestOhlcvOpts, callback?: (err: any, response: any) => void) {
-    return this.makeRequest(restOhlcvOpts, '/ohlcv', callback);
+    return this.makeRequest(restOhlcvOpts, 'ohlcv', callback);
   }
 
 }
