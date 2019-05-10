@@ -12,6 +12,7 @@
     "postversion": "git push && git push --tags",
     "prepare": "yarn build",
     "build": "tsc",
+    "debug-rest": "node --inspect=9235 -r ts-node/register src/test/coindockRestTest.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
