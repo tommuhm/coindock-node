@@ -1,30 +1,37 @@
 import WebSocket from 'ws';
 import {JsonOhlcv, WsOhlcvOpts} from '../types';
-
-// const Beautifier = require('./beautifier.js');
+import Beautifier from '../util/Beautifier';
 
 export default class CoindockWs {
 
-  // baseUrl not implemented yet!
-  private baseUrl: string;
-  private combinedUrl: string;
-  private debugStreams: boolean;
-  private apiKey: string;
+  private readonly baseUrl: string;
+  private readonly combinedUrl: string;
+  private readonly debugStreams: boolean;
+  private readonly apiKey: string;
+  private readonly beautifier: Beautifier | undefined;
 
   private streams = {
     ohlcv: ({exchange, symbol, interval, limit = 0, open = true}: WsOhlcvOpts) =>
       `${exchange.toLowerCase()}_${symbol.toLowerCase()}_${interval.toLowerCase()}` +
       (limit > 0 ? `_${limit}` : '') +
-      (open === true ? '@ohlcv_open' : '@ohlcv')
+      (open ? '@ohlcv_open' : '@ohlcv')
   };
 
   private sockets: { [path: string]: WebSocket; } = {};
 
-  public constructor({endpoint, apiKey, debugStreams = false}: { endpoint: string, apiKey: string, debugStreams?: boolean }) {
+  public constructor({endpoint, apiKey, debugStreams = false, beautify = true}:
+                       { endpoint: string,
+                         apiKey: string,
+                         debugStreams?: boolean,
+                         beautify?: boolean;
+                       }) {
     this.baseUrl = `ws://${endpoint}/ws/`;
     this.combinedUrl = `ws://${endpoint}/stream?streams=`;
     this.apiKey = apiKey;
     this.debugStreams = debugStreams;
+    if (beautify) {
+      this.beautifier = new Beautifier();
+    }
   }
 
   public onOhlcv(wsOhlcvOpts: WsOhlcvOpts, eventHandler: (msg: any) => void) {
@@ -41,10 +48,10 @@ export default class CoindockWs {
     if (this.sockets[streamUrl]) {
       return this.sockets[streamUrl];
     }
-    streamUrl = (isCombined == true ? this.combinedUrl : this.baseUrl) + streamUrl;
-    streamUrl += (isCombined == true ? `&` : `?`) + `apiKey=${this.apiKey}`;
+    streamUrl = (isCombined ? this.combinedUrl : this.baseUrl) + streamUrl;
+    streamUrl += (isCombined ? `&` : `?`) + `apiKey=${this.apiKey}`;
 
-    if (this.debugStreams == true) {
+    if (this.debugStreams) {
       streamUrl += '&debug=true';
     }
 
@@ -54,6 +61,11 @@ export default class CoindockWs {
       let event;
       try {
         event = JSON.parse(message);
+        // if (this.beautifier != null) {
+        //   if (event.stream) {
+        //     payload = this.beautifier.beautifySingle(event, `ws_${route}`);
+        //   }
+        // }
       } catch (e) {
         event = message;
       }
